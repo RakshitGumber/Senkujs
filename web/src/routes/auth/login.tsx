@@ -7,7 +7,9 @@ export const Route = createFileRoute("/auth/login")({
 function RouteComponent() {
   return (
     <div>
-      Hello "/auth/login"!
+      <a href="http://localhost:3000/auth/github">
+        <button>Login with GitHub</button>
+      </a>
       <Link to="/auth/signup">Singup</Link>
     </div>
   );
