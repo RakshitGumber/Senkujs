@@ -7,4 +7,6 @@ const app = new Elysia()
   .get("/", () => "Hello Elysia")
   .listen(3000);
 
-console.log(`🦊 Elysia is running at ${app.server?.url}`);
+console.log(`Server is running at ${app.server?.url}`);
+
+export type App = typeof app;
