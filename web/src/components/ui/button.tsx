@@ -9,7 +9,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ children, className, onClick }) => {
   return (
-    <button onClick={onClick} className={clsx}>
+    <button onClick={onClick} className={clsx("px-2 py-1 border", className)}>
       {children}
     </button>
   );
