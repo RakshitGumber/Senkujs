@@ -1,8 +1,6 @@
 import { Elysia } from "elysia";
 import { SignJWT } from "jose";
 
-// import { Auth } from "./service";
-// import { AuthModel } from "./models";
 import { db } from "../../db";
 import { eq } from "drizzle-orm";
 import { usersTable } from "../../schema";
