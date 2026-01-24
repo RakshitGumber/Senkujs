@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/controller/theme-toggle";
 import Button from "@/components/ui/button";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
@@ -17,6 +18,7 @@ function RouteComponent() {
         >
           Login
         </Button>
+        <ThemeToggle />
       </nav>
     </div>
   );
