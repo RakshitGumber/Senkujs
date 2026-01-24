@@ -1,8 +1,14 @@
 import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 export const usersTable = sqliteTable("users_table", {
-  id: int().primaryKey({ autoIncrement: true }),
+  id: text("id").primaryKey(),
   username: text().notNull(),
-  github_id: int().notNull().unique(),
-  avatar_url: text(),
-  email: text().notNull().unique(),
+  githubId: int().notNull().unique(),
+  avatarUrl: text(),
+  createdAt: int("created_at", { mode: "timestamp" }).defaultNow(),
+});
+
+export const sessions = sqliteTable("sessions", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  expiresAt: int("expires_at", { mode: "timestamp" }),
 });
