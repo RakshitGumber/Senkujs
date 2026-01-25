@@ -1,8 +1,8 @@
-import { cors } from "@elysiajs/cors";
-import { opentelemetry } from "@elysiajs/opentelemetry";
-import swagger from "@elysiajs/swagger";
+// import { opentelemetry } from "@elysiajs/opentelemetry";
+// import swagger from "@elysiajs/swagger";
 
 import { Elysia } from "elysia";
+import { cors } from "@elysiajs/cors";
 
 import "dotenv/config";
 
@@ -10,8 +10,8 @@ import { authService } from "@/services/auth-service";
 
 const app = new Elysia()
   .use(cors())
-  .use(opentelemetry())
-  .use(swagger())
+  // .use(opentelemetry())
+  // .use(swagger())
   .onError(({ error, code }) => {
     if (code === "NOT_FOUND") return "Not Found :(";
 
