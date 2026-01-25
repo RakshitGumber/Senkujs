@@ -25,9 +25,9 @@ const app = new Elysia()
     console.error(error);
   })
   .mount(auth.handler)
-  .use(betterAuth)
   .get("/", () => "Hello this is Senku speaking.")
   .get("health", () => "OK")
+  .use(betterAuth)
   .listen(3000);
 
 console.log(`Server is running at ${app.server?.url}`);

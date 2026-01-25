@@ -6,12 +6,12 @@ export const user = sqliteTable("user", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => Bun.randomUUIDv7()),
-  username: text().notNull(),
+  name: text("username").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: integer("emailVerified", {
     mode: "boolean",
   }).notNull(),
-  avatarUrl: text(),
+  image: text("avatar_url"),
   createdAt: integer("createdAt", {
     mode: "timestamp",
   })

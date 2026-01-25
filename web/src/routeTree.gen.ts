@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as GuestRouteRouteImport } from './routes/_guest/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as AuthIndexRouteImport } from './routes/_auth/index'
 import { Route as GuestOrewaRouteImport } from './routes/_guest/orewa'
 
 const GuestRouteRoute = GuestRouteRouteImport.update({
@@ -21,6 +22,11 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/_auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthIndexRoute = AuthIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 const GuestOrewaRoute = GuestOrewaRouteImport.update({
   id: '/orewa',
   path: '/orewa',
@@ -28,29 +34,30 @@ const GuestOrewaRoute = GuestOrewaRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof GuestRouteRouteWithChildren
+  '/': typeof AuthIndexRoute
   '/orewa': typeof GuestOrewaRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof GuestRouteRouteWithChildren
+  '/': typeof AuthIndexRoute
   '/orewa': typeof GuestOrewaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_auth': typeof AuthRouteRoute
+  '/_auth': typeof AuthRouteRouteWithChildren
   '/_guest': typeof GuestRouteRouteWithChildren
   '/_guest/orewa': typeof GuestOrewaRoute
+  '/_auth/': typeof AuthIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/' | '/orewa'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/orewa'
-  id: '__root__' | '/_auth' | '/_guest' | '/_guest/orewa'
+  id: '__root__' | '/_auth' | '/_guest' | '/_guest/orewa' | '/_auth/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AuthRouteRoute: typeof AuthRouteRoute
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
   GuestRouteRoute: typeof GuestRouteRouteWithChildren
 }
 
@@ -70,6 +77,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth/': {
+      id: '/_auth/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
     '/_guest/orewa': {
       id: '/_guest/orewa'
       path: '/orewa'
@@ -79,6 +93,18 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthRouteRouteChildren {
+  AuthIndexRoute: typeof AuthIndexRoute
+}
+
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthIndexRoute: AuthIndexRoute,
+}
+
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
 
 interface GuestRouteRouteChildren {
   GuestOrewaRoute: typeof GuestOrewaRoute
@@ -93,7 +119,7 @@ const GuestRouteRouteWithChildren = GuestRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  AuthRouteRoute: AuthRouteRoute,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
   GuestRouteRoute: GuestRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport

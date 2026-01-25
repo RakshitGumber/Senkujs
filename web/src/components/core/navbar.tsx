@@ -1,10 +1,13 @@
 import { ThemeToggle } from "@/components/controller/theme-toggle";
 import Button from "@/components/ui/button";
-import { signIn } from "@/libs/better-auth/client";
-import { useNavigate } from "@tanstack/react-router";
+import { authClient } from "@/libs/better-auth/client";
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const signIn = async () => {
+    await authClient.signIn.social({
+      provider: "github",
+    });
+  };
 
   return (
     <nav className="h-16 w-full border-b border-gray-400 flex items-center justify-between px-8">
