@@ -2,7 +2,7 @@ import Navbar from "@/components/core/navbar";
 
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/orewa")({
+export const Route = createFileRoute("/_guest/orewa")({
   component: RouteComponent,
 });
 

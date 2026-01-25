@@ -9,86 +9,92 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as OrewaRouteImport } from './routes/orewa'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as GuestRouteRouteImport } from './routes/_guest/route'
+import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as GuestOrewaRouteImport } from './routes/_guest/orewa'
 
-const OrewaRoute = OrewaRouteImport.update({
+const GuestRouteRoute = GuestRouteRouteImport.update({
+  id: '/_guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRouteRoute = AuthRouteRouteImport.update({
+  id: '/_auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuestOrewaRoute = GuestOrewaRouteImport.update({
   id: '/orewa',
   path: '/orewa',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => GuestRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/orewa': typeof OrewaRoute
+  '/': typeof GuestRouteRouteWithChildren
+  '/orewa': typeof GuestOrewaRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/orewa': typeof OrewaRoute
+  '/': typeof GuestRouteRouteWithChildren
+  '/orewa': typeof GuestOrewaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
-  '/orewa': typeof OrewaRoute
+  '/_auth': typeof AuthRouteRoute
+  '/_guest': typeof GuestRouteRouteWithChildren
+  '/_guest/orewa': typeof GuestOrewaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/orewa'
+  fullPaths: '/' | '/orewa'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/orewa'
-  id: '__root__' | '/' | '/dashboard' | '/orewa'
+  to: '/' | '/orewa'
+  id: '__root__' | '/_auth' | '/_guest' | '/_guest/orewa'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  DashboardRoute: typeof DashboardRoute
-  OrewaRoute: typeof OrewaRoute
+  AuthRouteRoute: typeof AuthRouteRoute
+  GuestRouteRoute: typeof GuestRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/orewa': {
-      id: '/orewa'
+    '/_guest': {
+      id: '/_guest'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof GuestRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_guest/orewa': {
+      id: '/_guest/orewa'
       path: '/orewa'
       fullPath: '/orewa'
-      preLoaderRoute: typeof OrewaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof GuestOrewaRouteImport
+      parentRoute: typeof GuestRouteRoute
     }
   }
 }
 
+interface GuestRouteRouteChildren {
+  GuestOrewaRoute: typeof GuestOrewaRoute
+}
+
+const GuestRouteRouteChildren: GuestRouteRouteChildren = {
+  GuestOrewaRoute: GuestOrewaRoute,
+}
+
+const GuestRouteRouteWithChildren = GuestRouteRoute._addFileChildren(
+  GuestRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  DashboardRoute: DashboardRoute,
-  OrewaRoute: OrewaRoute,
+  AuthRouteRoute: AuthRouteRoute,
+  GuestRouteRoute: GuestRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
