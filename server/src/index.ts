@@ -1,33 +1,28 @@
-import { Elysia } from "elysia";
-import "dotenv/config";
-import { auth } from "./modules/auth";
-import { getSession } from "./utils/session";
-import { db } from "./db";
-import { usersTable } from "./schema";
-import { eq } from "drizzle-orm";
-
 import { cors } from "@elysiajs/cors";
+import { opentelemetry } from "@elysiajs/opentelemetry";
+import swagger from "@elysiajs/swagger";
+
+import { Elysia } from "elysia";
+
+import "dotenv/config";
+
+import { authService } from "@/services/auth-service";
 
 const app = new Elysia()
-  .use(auth)
   .use(cors())
-  .get("/auth/me", async ({ cookie }) => {
-    const sessionId = cookie.session?.value;
-    if (!sessionId) return null;
+  .use(opentelemetry())
+  .use(swagger())
+  .onError(({ error, code }) => {
+    if (code === "NOT_FOUND") return "Not Found :(";
 
-    const session = await getSession(sessionId);
-    if (!session) return null;
-
-    const [user] = await db
-      .select()
-      .from(usersTable)
-      .where(eq(usersTable.id, session.userId));
-
-    return user;
+    console.error(error);
   })
-  .get("/", () => "Hello Elysia")
+  .use(authService)
+  .get("/", () => "Hello this is Senku speaking.")
+  .get("health", () => "OK")
   .listen(3000);
 
 console.log(`Server is running at ${app.server?.url}`);
+console.log(`Swagger documentation available at ${app.server?.url}/swagger`);
 
 export type App = typeof app;
