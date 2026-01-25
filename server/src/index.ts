@@ -6,6 +6,7 @@ import { cors } from "@elysiajs/cors";
 
 import "dotenv/config";
 import { betterAuth } from "./middlewares/auth";
+import { auth } from "./libs/better-auth/auth";
 
 const app = new Elysia()
   .use(
@@ -13,7 +14,7 @@ const app = new Elysia()
       origin: "http://localhost:5173",
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       credentials: true,
-      allowedHeaders: ["Content-Type", "Authorization"],
+      allowedHeaders: ["Content-Type", "Authorization", "Cookie", "Set-Cookie"],
     }),
   )
   // .use(opentelemetry())
@@ -23,6 +24,7 @@ const app = new Elysia()
 
     console.error(error);
   })
+  .mount(auth.handler)
   .use(betterAuth)
   .get("/", () => "Hello this is Senku speaking.")
   .get("health", () => "OK")

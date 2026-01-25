@@ -1,7 +1,14 @@
 import { createAuthClient } from "better-auth/react";
 
-const authClient = createAuthClient({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+export const authClient = createAuthClient({
+  baseURL: "http://localhost:3000",
+  fetchOptions: {
+    credentials: "include",
+  },
 });
 
-export { authClient };
+export const signIn = async () => {
+  const data = await authClient.signIn.social({
+    provider: "github",
+  });
+};

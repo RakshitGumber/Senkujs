@@ -1,5 +1,6 @@
 import { ThemeToggle } from "@/components/controller/theme-toggle";
 import Button from "@/components/ui/button";
+import { signIn } from "@/libs/better-auth/client";
 import { useNavigate } from "@tanstack/react-router";
 
 const Navbar = () => {
@@ -11,7 +12,7 @@ const Navbar = () => {
       <div className="flex gap-4">
         <Button
           className="bg-green-300 py-1 px-4 rounded font-bold text-green-800 shadow-lg hover:bg-green-200 cursor-pointer hover:text-green-600 hover:shadow-sm"
-          onClick={() => navigate({ to: "/auth/login" })}
+          onClick={() => signIn()}
         >
           Login
         </Button>
