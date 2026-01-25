@@ -5,11 +5,17 @@ import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 
 import "dotenv/config";
-
-import { authService } from "@/services/auth-service";
+import { betterAuth } from "./middlewares/auth";
 
 const app = new Elysia()
-  .use(cors())
+  .use(
+    cors({
+      origin: "http://localhost:5173",
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      credentials: true,
+      allowedHeaders: ["Content-Type", "Authorization"],
+    }),
+  )
   // .use(opentelemetry())
   // .use(swagger())
   .onError(({ error, code }) => {
@@ -17,7 +23,7 @@ const app = new Elysia()
 
     console.error(error);
   })
-  .use(authService)
+  .use(betterAuth)
   .get("/", () => "Hello this is Senku speaking.")
   .get("health", () => "OK")
   .listen(3000);
