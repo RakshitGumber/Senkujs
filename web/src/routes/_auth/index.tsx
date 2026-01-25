@@ -1,4 +1,4 @@
-import { authClient } from "@/libs/better-auth/client";
+import Profile from "@/components/core/profile";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_auth/")({
@@ -6,12 +6,12 @@ export const Route = createFileRoute("/_auth/")({
 });
 
 function RouteComponent() {
-  const { data: user } = authClient.useSession();
-
   return (
-    <div>
-      <h1>Hello {user?.user.name}</h1>
-      <img src={user?.user.image!} alt="Wow" />
+    <div className="flex flex-col p-4">
+      <h1 className="text-3xl font-bold uppercase text-center py-4">
+        Senku JS
+      </h1>
+      <Profile />
     </div>
   );
 }
