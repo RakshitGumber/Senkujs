@@ -1,4 +1,4 @@
-import type { Assembler } from "../src/assembler";
+import type { Assembler } from "../assembler";
 
 export const languageAssembler: Assembler = (files, spec) => {
   files.set(`src/main.${spec.language}`, {

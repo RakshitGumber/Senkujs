@@ -1,6 +1,4 @@
-import type { Assembler } from "../src/assembler";
-import type { FileGraph, FileNode } from "../src/file";
-import type { ProjectSpec } from "../src/spec";
+import type { Assembler } from "@ts/assembler";
 
 export const baseAssembler: Assembler = (files, spec) => {
   files.set("index.html", {

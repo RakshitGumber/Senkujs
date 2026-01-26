@@ -1,4 +1,4 @@
-import type { ProjectSpec } from "./spec";
+import type { ProjectSpec } from "@ts/spec";
 
 export function resolveDeps(spec: ProjectSpec): string[] {
   const deps = new Set<string>();

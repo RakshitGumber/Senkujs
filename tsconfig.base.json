@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@engine/*": ["packages/engine/src/*"],
+      "@shared/*": ["shared/*"]
+    }
+  }
+}

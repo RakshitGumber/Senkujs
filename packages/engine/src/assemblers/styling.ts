@@ -1,6 +1,4 @@
-import type { FileGraph } from "../src/file";
-import type { ProjectSpec } from "../src/spec";
-import type { Assembler } from "../src/assembler";
+import type { Assembler } from "@ts/assembler";
 
 export const stylingAssembler: Assembler = (files, spec) => {
   if (spec.styling.type === "tailwind") {

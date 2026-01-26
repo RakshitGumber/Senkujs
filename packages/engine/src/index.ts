@@ -1,13 +1,12 @@
-import { emit } from "./src/emitter";
-import type { ProjectSpec } from "./src/spec";
+import { emit } from "./emitter";
+import type { ProjectSpec } from "@ts/spec";
 
-import type { FileGraph } from "./src/file";
-import type { Assembler } from "./src/assembler";
+import type { FileGraph } from "@ts/file";
+import type { Assembler } from "@ts/assembler";
 
 import { baseAssembler } from "./assemblers/base";
 import { languageAssembler } from "./assemblers/language";
 import { stylingAssembler } from "./assemblers/styling";
-import { externalApiAssembler } from "./assemblers/external-api";
 
 export function buildProject(spec: ProjectSpec): FileGraph {
   const files: FileGraph = new Map();
@@ -16,7 +15,6 @@ export function buildProject(spec: ProjectSpec): FileGraph {
     baseAssembler,
     languageAssembler,
     stylingAssembler,
-    externalApiAssembler,
   ];
 
   for (const assembler of pipeline) {
