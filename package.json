@@ -1,0 +1,10 @@
+{
+  "name": "senkujs",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "shared/*"
+  ]
+}

@@ -1,6 +1,9 @@
 {
-  "name": "engine",
+  "name": "@senkujs/engine",
+  "version": "0.0.1",
   "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "devDependencies": {
     "@types/bun": "latest"
   },

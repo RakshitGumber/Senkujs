@@ -3,6 +3,7 @@
 
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
+import { generateProject } from "@senkujs/engine";
 
 import "dotenv/config";
 import { betterAuth } from "./middlewares/auth";
@@ -26,6 +27,7 @@ const app = new Elysia()
   })
   .mount(auth.handler)
   .get("/", () => "Hello this is Senku speaking.")
+  // .get("/engine", async () => await generateProject())
   .get("health", () => "OK")
   .use(betterAuth)
   .listen(3000);
