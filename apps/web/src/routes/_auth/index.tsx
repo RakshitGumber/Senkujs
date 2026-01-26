@@ -1,26 +1,32 @@
+import { api } from "@/api";
 import Profile from "@/components/core/profile";
+import Button from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import type { ProjectSpec } from "../../../../engine/src/spec";
 
 export const Route = createFileRoute("/_auth/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const [spec, setSpec] = useState<ProjectSpec>({
-    name: "my-app",
-    runtime: "browser",
-    framework: "vanilla",
-    language: "ts",
-    styling: { type: "tailwind" },
-    features: {
-      externalApi: {
-        client: "axios",
-        envKeyName: "VITE_API_URL",
-      },
-    },
-  });
+  const createProject = async () => {
+    const res = await fetch("http://localhost:3000/create", {
+      method: "GET",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to download project");
+    }
+
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `$first.zip`;
+    a.click();
+
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="flex flex-col p-4">
@@ -28,13 +34,12 @@ function RouteComponent() {
         Senku JS
       </h1>
       <Profile />
-      <select
-        value={spec.language}
-        onChange={(e) => setSpec({ ...spec, language: e.target.value as any })}
+      <Button
+        className="bg-red-700 text-red-50 cursor-pointer"
+        onClick={createProject}
       >
-        <option value="js">JavaScript</option>
-        <option value="ts">TypeScript</option>
-      </select>
+        Create
+      </Button>
     </div>
   );
 }

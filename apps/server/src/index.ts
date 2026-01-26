@@ -3,11 +3,12 @@
 
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
-import { generateProject } from "@senkujs/engine";
+import { generateProject } from "@senkujs/create";
 
 import "dotenv/config";
 import { betterAuth } from "./middlewares/auth";
 import { auth } from "./libs/better-auth/auth";
+import { zipDir } from "./utils/zip";
 
 const app = new Elysia()
   .use(
@@ -27,9 +28,31 @@ const app = new Elysia()
   })
   .mount(auth.handler)
   .get("/", () => "Hello this is Senku speaking.")
-  // .get("/engine", async () => await generateProject())
   .get("health", () => "OK")
   .use(betterAuth)
+  .get("/create", async ({ set }) => {
+    const outDir = `./temp/${"First"}`;
+    await generateProject(
+      {
+        name: "First",
+
+        runtime: "browser",
+
+        framework: "vanilla",
+        language: "ts",
+        styling: { type: "tailwind" },
+      },
+      outDir,
+    );
+
+    const zipPath = `${outDir}.zip`;
+    await zipDir(outDir, zipPath);
+
+    set.headers["Content-Type"] = "application/zip";
+    set.headers["Content-Disposition"] = `attachment; filename=first.zip`;
+
+    return Bun.file(zipPath);
+  })
   .listen(3000);
 
 console.log(`Server is running at ${app.server?.url}`);

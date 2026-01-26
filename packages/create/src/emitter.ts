@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
-import type { FileGraph } from "./file";
+import type { FileGraph } from "@ts/file";
 
 export async function emit(files: FileGraph, outDir: string) {
   for (const file of files.values()) {

@@ -29,16 +29,15 @@ export async function generateProject(spec: ProjectSpec, outDir: string) {
   await emit(files, outDir);
 }
 
-generateProject(
-  {
-    name: "First",
+// generateProject(
+//   {
+//     name: "First",
 
-    runtime: "browser",
+//     runtime: "browser",
 
-    framework: "vanilla",
-    language: "ts",
-    styling: { type: "tailwind" },
-    features: {},
-  },
-  "D:/Projects/senkujs/first",
-);
+//     framework: "vanilla",
+//     language: "ts",
+//     styling: { type: "tailwind" },
+//   },
+//   "D:/Projects/senkujs/first",
+// );

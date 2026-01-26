@@ -8,10 +8,11 @@ export const baseAssembler: Assembler = (files, spec) => {
 <head>
   <meta charset="UTF-8" />
   <title>${spec.name}</title>
+
+  <!-- STYLE_INJECT -->
 </head>
 <body>
-  <div id="app"></div>
-  <!-- STYLE_INJECT -->
+  <div id="root"></div>
   <script type="module" src="/src/main.${spec.language}"></script>
 </body>
 </html>`,
