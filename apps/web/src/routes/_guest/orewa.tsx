@@ -10,11 +10,8 @@ function RouteComponent() {
   return (
     <div>
       <Navbar />
-      <main className="flex w-screen">
-        <section
-          id="hero"
-          className="flex justify-center items-center h-125 w-full"
-        >
+      <main className="flex flex-col w-screen items-center gap-16 p-16">
+        <section id="hero" className="flex justify-center items-center w-full">
           <h1 className="text-2xl font-bold">
             Create your next website in few CLICKS...
           </h1>

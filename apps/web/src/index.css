@@ -1,20 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import "tailwindcss";
 
 :root {
     --background-color: oklch(98.4% 0.003 247.858);
     --foreground-color: black;
+    --accent-color: #dd4209
 }
 
 .dark {
     --background-color: #030712;
     --foreground-color: white;
+    --accent-color: #dd4209
 }
 
 @theme {
     --color-background: var(--background-color);
-    --color-foreground: var(--foreground-color)
+    --color-foreground: var(--foreground-color);
+    --color-accent: var(--accent-color);
+    --color-link: #09A4DD;
+    --color-success: #3add09;
+    --color-extra: #AC09DD;
+    --font-heading: "Archivo", monospace;
+    --font-body: "Mulish", monospace;
 }
 
 body {
-    @apply bg-background text-foreground
+    @apply bg-background text-foreground font-body
 }

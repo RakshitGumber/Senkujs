@@ -1,4 +1,3 @@
-import { api } from "@/api";
 import Profile from "@/components/core/profile";
 import Button from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
