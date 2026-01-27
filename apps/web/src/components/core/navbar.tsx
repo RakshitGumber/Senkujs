@@ -1,6 +1,7 @@
-// import { ThemeToggle } from "@/components/controller/theme-toggle";
-// import Button from "@/components/ui/button";
+import { ThemeToggle } from "@/components/controller/theme-toggle";
 import { authClient } from "@/libs/better-auth/client";
+import Button from "../ui/button";
+import { Icon } from "@iconify/react";
 
 const Navbar = () => {
   const signIn = async () => {
@@ -10,28 +11,25 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between w-screen h-24 border-b border-slate-700 p-8">
+    <nav className="flex items-center justify-between w-screen h-24 border-b border-slate-800 p-8">
       <div className="cursor-pointer px-4 py-2 rounded-sm hover:bg-slate-900">
-        <h1 className="font-heading font-bold text-2xl">Senku JS</h1>
+        <h1 className="font-heading font-bold text-3xl">Senku JS</h1>
       </div>
-      <div>b</div>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center justify-end gap-4">
+          <a href="https://github.com/RakshitGumber/Senkujs" target="_blank">
+            <Icon icon="fa:github" className="text-2xl" />
+          </a>
+          <ThemeToggle />
+        </div>
+        <Button
+          className="bg-accent text-background font-body font-bold uppercase px-4 py-2 rounded-xl"
+          onClick={() => signIn()}
+        >
+          Log In
+        </Button>
+      </div>
     </nav>
   );
-
-  // return (
-  //   <nav className="h-16 w-full border-b border-gray-400 flex items-center justify-between px-8">
-  //     <ul className="flex"></ul>
-  //     <div className="flex gap-4">
-  //       <Button
-  //         className="bg-green-300 py-1 px-4 rounded font-bold text-green-800 shadow-lg hover:bg-green-200 cursor-pointer hover:text-green-600 hover:shadow-sm"
-  //         onClick={() => signIn()}
-  //       >
-  //         Login
-  //       </Button>
-
-  //       <ThemeToggle />
-  //     </div>
-  //   </nav>
-  // );
 };
 export default Navbar;

@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = ({ children, className, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className={clsx("px-2 py-1 border shadow-lg", className)}
+      className={clsx(className, "px-2 py-1 border shadow-lg")}
     >
       {children}
     </button>
