@@ -7,8 +7,7 @@ export interface ProjectSpec {
   language: "js" | "ts";
 
   styling: {
-    // type: "css" | "scss" | "tailwind";
-    type: "css" | "tailwind";
+    type: "css" | "scss" | "tailwind";
   };
 
   // features: {
