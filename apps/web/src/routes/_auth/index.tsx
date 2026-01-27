@@ -8,31 +8,33 @@ export const Route = createFileRoute("/_auth/")({
 });
 
 interface ProjectConfigs {
+  name: string;
   scope?: "frontend" | "backend" | "fullstack";
   framework?: "vanilla" | "react";
   language?: "ts" | "js";
-  style?: "css" | "tailwind";
+  styling?: "css" | "tailwind";
 }
 
 function RouteComponent() {
-  const [projectSpecs, setProjectSpecs] = useState<ProjectConfigs>();
+  const [projectSpecs, setProjectSpecs] = useState<ProjectConfigs>({
+    name: "",
+  });
 
   const createProject = async () => {
-    console.log(projectSpecs);
-
-    // const res = await fetch("http://localhost:3000/create", {
-    //   method: "GET",
-    // });
-    // if (!res.ok) {
-    //   throw new Error("Failed to download project");
-    // }
-    // const blob = await res.blob();
-    // const url = URL.createObjectURL(blob);
-    // const a = document.createElement("a");
-    // a.href = url;
-    // a.download = `$first.zip`;
-    // a.click();
-    // URL.revokeObjectURL(url);
+    const res = await fetch("http://localhost:3000/create", {
+      method: "POST",
+      body: JSON.stringify(projectSpecs),
+    });
+    if (!res.ok) {
+      throw new Error("Failed to download project");
+    }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${projectSpecs.name}.zip`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -45,6 +47,16 @@ function RouteComponent() {
         className="h-[70vh] w-4/5 mx-auto overflow-y-scroll flex flex-col items-center justify-start
       "
       >
+        <div className="w-full flex flex-col gap-2 border-b border-gray-400 pb-4 pt-2">
+          <h1 className="font-bold font-heading">Name</h1>
+          <input
+            type="text"
+            value={projectSpecs.name}
+            onChange={(e) =>
+              setProjectSpecs({ ...projectSpecs, name: e.target.value })
+            }
+          />
+        </div>
         {/* <div className="w-full flex flex-col gap-2 border-b border-gray-400 pb-4 pt-2">
           <h1 className="font-bold font-heading">Scope</h1>
           <div className="flex gap-4">
@@ -89,7 +101,7 @@ function RouteComponent() {
             <div className="flex items-center gap-1">
               <input
                 type="radio"
-                name="scope"
+                name="framework"
                 value="vanilla"
                 onChange={() =>
                   setProjectSpecs({
@@ -103,7 +115,7 @@ function RouteComponent() {
             <div className="flex items-center gap-1">
               <input
                 type="radio"
-                name="scope"
+                name="framework"
                 value="react"
                 onChange={() =>
                   setProjectSpecs({
@@ -122,7 +134,7 @@ function RouteComponent() {
             <div className="flex items-center gap-1">
               <input
                 type="radio"
-                name="scope"
+                name="language"
                 value="ts"
                 onChange={() =>
                   setProjectSpecs({
@@ -136,7 +148,7 @@ function RouteComponent() {
             <div className="flex items-center gap-1">
               <input
                 type="radio"
-                name="scope"
+                name="language"
                 value="js"
                 onChange={() =>
                   setProjectSpecs({
@@ -155,12 +167,12 @@ function RouteComponent() {
             <div className="flex items-center gap-1">
               <input
                 type="radio"
-                name="scope"
-                value="ts"
+                name="style"
+                value="css"
                 onChange={() =>
                   setProjectSpecs({
                     ...projectSpecs,
-                    style: "css",
+                    styling: "css",
                   })
                 }
               />
@@ -169,12 +181,12 @@ function RouteComponent() {
             <div className="flex items-center gap-1">
               <input
                 type="radio"
-                name="scope"
+                name="style"
                 value="tailwind"
                 onChange={() =>
                   setProjectSpecs({
                     ...projectSpecs,
-                    style: "tailwind",
+                    styling: "tailwind",
                   })
                 }
               />

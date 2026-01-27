@@ -30,17 +30,17 @@ const app = new Elysia()
   .get("/", () => "Hello this is Senku speaking.")
   .get("health", () => "OK")
   .use(betterAuth)
-  .get("/create", async ({ set }) => {
-    const outDir = `./temp/${"First"}`;
+  .post("/create", async ({ body, set }) => {
+    const outDir = `./temp/${body.name}`;
     await generateProject(
       {
-        name: "First",
+        name: body.name,
 
         runtime: "browser",
 
-        framework: "vanilla",
-        language: "ts",
-        styling: { type: "tailwind" },
+        framework: body.framework,
+        language: body.language,
+        styling: { type: body.styling },
       },
       outDir,
     );
