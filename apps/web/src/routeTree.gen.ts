@@ -13,6 +13,7 @@ import { Route as GuestRouteRouteImport } from './routes/_guest/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as AuthIndexRouteImport } from './routes/_auth/index'
 import { Route as GuestOrewaRouteImport } from './routes/_guest/orewa'
+import { Route as GuestBasereactRouteImport } from './routes/_guest/basereact'
 
 const GuestRouteRoute = GuestRouteRouteImport.update({
   id: '/_guest',
@@ -32,28 +33,42 @@ const GuestOrewaRoute = GuestOrewaRouteImport.update({
   path: '/orewa',
   getParentRoute: () => GuestRouteRoute,
 } as any)
+const GuestBasereactRoute = GuestBasereactRouteImport.update({
+  id: '/basereact',
+  path: '/basereact',
+  getParentRoute: () => GuestRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthIndexRoute
+  '/basereact': typeof GuestBasereactRoute
   '/orewa': typeof GuestOrewaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthIndexRoute
+  '/basereact': typeof GuestBasereactRoute
   '/orewa': typeof GuestOrewaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_guest': typeof GuestRouteRouteWithChildren
+  '/_guest/basereact': typeof GuestBasereactRoute
   '/_guest/orewa': typeof GuestOrewaRoute
   '/_auth/': typeof AuthIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/orewa'
+  fullPaths: '/' | '/basereact' | '/orewa'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/orewa'
-  id: '__root__' | '/_auth' | '/_guest' | '/_guest/orewa' | '/_auth/'
+  to: '/' | '/basereact' | '/orewa'
+  id:
+    | '__root__'
+    | '/_auth'
+    | '/_guest'
+    | '/_guest/basereact'
+    | '/_guest/orewa'
+    | '/_auth/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -91,6 +106,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestOrewaRouteImport
       parentRoute: typeof GuestRouteRoute
     }
+    '/_guest/basereact': {
+      id: '/_guest/basereact'
+      path: '/basereact'
+      fullPath: '/basereact'
+      preLoaderRoute: typeof GuestBasereactRouteImport
+      parentRoute: typeof GuestRouteRoute
+    }
   }
 }
 
@@ -107,10 +129,12 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 )
 
 interface GuestRouteRouteChildren {
+  GuestBasereactRoute: typeof GuestBasereactRoute
   GuestOrewaRoute: typeof GuestOrewaRoute
 }
 
 const GuestRouteRouteChildren: GuestRouteRouteChildren = {
+  GuestBasereactRoute: GuestBasereactRoute,
   GuestOrewaRoute: GuestOrewaRoute,
 }
 
