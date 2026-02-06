@@ -1,9 +1,12 @@
 {
-  "name": "@senkujs/modify",
+  "name": "@senkujs/create-dep",
   "version": "0.0.1",
-  "module": "./src/index.ts",
-  "type": "module",
   "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "@senkujs/modify": "*"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },

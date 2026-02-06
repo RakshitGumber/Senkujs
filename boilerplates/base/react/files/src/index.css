@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root,
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app {
+    background-color: #030712;
+
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    font-family: "Mulish";
+    color: white
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 600;
+    text-transform: capitalize;
+    position: relative;
+}
+
+h1 a {
+    position: relative;
+    color: #c21e00;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+
+.hero {
+    height: 40%;
+    display: flex;
+    align-items: flex-end;
+}
+
+img {
+    width: 200px;
+    display: block;
+
+    transition:
+        transform 800ms cubic-bezier(.4, .2, .2, 1),
+        filter 800ms ease;
+
+    filter: drop-shadow(0 12px 18px #00A4C259);
+
+    transform-style: preserve-3d;
+}
+
+img:hover {
+    transform: perspective(900px) rotateY(359deg);
+
+    filter:
+        drop-shadow(0 18px 30px #00A4C2a6) drop-shadow(0 28px 50px #00A4C273);
+}
+
+
+.box {
+    position: relative;
+    padding: 28px 36px;
+    border-radius: 10px;
+
+    color: white;
+    text-align: center;
+
+    overflow: hidden;
+}
+
+.counter {
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    display: block;
+}
+
+.actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+.action-buttons {
+    position: relative;
+    padding: 10px 18px;
+
+    width: 80px;
+
+    background: black;
+
+    border: 2px solid #c21e00;
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        background 200ms ease,
+        transform 150ms ease,
+        box-shadow 200ms ease;
+}
+
+.action-buttons:hover {
+    background: #c21e00;
+}
+
+.action-buttons:active {
+    transform: scale(0.96);
+}
+
+
+.hint {
+    font-size: 22px;
+}

@@ -33,28 +33,8 @@ h1 a {
     color: #c21e00;
     text-decoration: none;
     font-weight: 700;
-    transition: color 400ms linear;
 }
 
-h1 a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 0;
-    height: 4px;
-    background-color: #c21e00;
-    transition: width 200ms linear;
-}
-
-h1 a:hover {
-    color: white;
-    cursor: pointer;
-}
-
-h1 a:hover::after {
-    width: 160px;
-}
 
 .hero {
     height: 40%;
@@ -93,8 +73,6 @@ img:hover {
 
     overflow: hidden;
 }
-
-
 
 .counter {
     font-size: 56px;
@@ -141,21 +119,6 @@ img:hover {
     transform: scale(0.96);
 }
 
-.action-buttons .ripple {
-    position: absolute;
-    border-radius: 50%;
-    transform: scale(0);
-    animation: ripple 600ms linear;
-    background-color: rgba(255, 255, 255, 0.45);
-    pointer-events: none;
-}
-
-@keyframes ripple {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
 
 .hint {
     font-size: 22px;
